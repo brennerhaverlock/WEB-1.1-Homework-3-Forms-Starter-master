@@ -51,15 +51,12 @@ def compliments():
 @app.route('/compliments_results')
 def compliments_results():
     """Show the user some compliments."""
-
-    num = int(request.args.get("num_compliments"))
-    random_comp = random.sample(list_of_compliments,num)
     context = {
         "name": request.args.get("users_name"),
         "wants_compliments": request.args.get("wants_compliments"),
-        "compliments": random_comp
+        "compliments": int(request.args.get("num_compliments"))
     }
-
+    context['random_comp'] = random.sample(list_of_compliments, k=context['compliments'])
     return render_template('compliments_results.html', **context)
 
 

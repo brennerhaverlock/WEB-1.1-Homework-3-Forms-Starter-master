@@ -12,7 +12,7 @@ Compliments Results
 {% if wants_compliments == "yes" %}
     <br>You are:<br>
     <ul>
-    {% for i in range(num_compliments) %}
+    {% for i in range(compliments) %}
         <li>{{ random_comp[i] }}</li>
     {% endfor %}
     </ul>
