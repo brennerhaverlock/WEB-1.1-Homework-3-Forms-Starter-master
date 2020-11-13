@@ -52,11 +52,13 @@ def compliments():
 def compliments_results():
     """Show the user sopiume compliments."""
     context = {
-        # TODO: Enter your context variables here.
         "name": request.args.get("users_name"),
         "boolcomp": request.args.get("wants_compliments"),
         "compliments": int(request.args.get('num_compliments'))
     }
+    
+    # Append dict with random num of compliments
+    context['random_compliments'] = random.sample(list_of_compliments, k=context['num_compliments'])
 
     return render_template('compliments_results.html', **context)
 

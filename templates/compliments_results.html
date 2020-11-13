@@ -8,6 +8,17 @@ Compliments Results
 
 <!-- Your HTML code goes here! -->
 
+<h1>Hello, {{ users_name }}!</h1>
+
+{% if wants_compliments == "yes" %}
+    <br>You are:<br>
+    <ul>
+    {% for i in range(num_compliments) %}
+        <li>{{ random_compliments[i] }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
 
 
 {% endblock %}
