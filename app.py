@@ -148,12 +148,14 @@ def image_filter():
         # call `apply_filter()` on the file path & filter type
         apply_filter(new_file_path, filter_type)
 
+        img_URL = f'/static/images/{image.filename}'
+
         context = {
             # TODO: Add context variables here for:
             # - The full list of filter types
             'full_filter_types' : filter_types,
             # - The image URL
-            'img_URL' : f'/static/images/{image}'
+            'img_URL' : img_URL
         }
 
         return render_template('image_filter.html', **context)
