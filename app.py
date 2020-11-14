@@ -78,10 +78,14 @@ def animal_facts():
 
     # TODO: Collect the form data and save as variables
 
+    animal = request.args.get('animal')
+
     context = {
         # TODO: Enter your context variables here for:
+        'animals' : animal_to_fact.keys(),
         # - the list of all animals (get from animal_to_fact)
         # - the chosen animal fact (may be None if the user hasn't filled out the form yet)
+        'animal_fact': animal_to_fact.get(animal)
     }
     return render_template('animal_facts.html', **context)
 
@@ -130,24 +134,26 @@ def image_filter():
 
     if request.method == 'POST':
         
-        # TODO: Get the user's chosen filter type (whichever one they chose in the form) and save
+        # Get the user's chosen filter type (whichever one they chose in the form) and save
         # as a variable
-        filter_type = ''
+        filter_type = request.form.get('filter_type')
         
         # Get the image file submitted by the user
         image = request.files.get('users_image')
 
-        # TODO: call `save_image()` on the image & the user's chosen filter type, save the returned
+        # call `save_image()` on the image & the user's chosen filter type, save the returned
         # value as the new file path
+        new_file_path = save_image(image,filter_type)
 
-        # TODO: Call `apply_filter()` on the file path & filter type
-
-        image_url = f'/static/images/{image.filename}'
+        # call `apply_filter()` on the file path & filter type
+        apply_filter(new_file_path, filter_type)
 
         context = {
             # TODO: Add context variables here for:
             # - The full list of filter types
+            'full_filter_types' : filter_types,
             # - The image URL
+            'img_URL' : f'/static/images/{image}'
         }
 
         return render_template('image_filter.html', **context)
@@ -155,6 +161,7 @@ def image_filter():
     else: # if it's a GET request
         context = {
             # TODO: Add context variable here for the full list of filter types
+            'full_filter_types' : filter_types_dict.keys()
         }
         return render_template('image_filter.html', **context)
 
